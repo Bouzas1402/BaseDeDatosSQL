@@ -1,0 +1,33 @@
+CREATE TABLE comprador (
+    cif_comprador VARCHAR(11) CONSTRAINT comprador_cif_comprador_pk PRIMARY KEY,
+nombre_social VARCHAR(30) UNIQUE,
+domicilio_social VARCHAR(30),
+localidad VARCHAR(30),
+c_postal VARCHAR(5),
+telefono CHAR(9) NOT NULL,
+);
+
+CREATE TABLE  articulo (
+referencia_articulo VARCHAR(12) CONSTRAINT articulo_referencia_articulo_pk PRIMARY KEY,
+descripcion_articulo VARCHAR(30),
+precio_unidad NUMERIC(6,2),
+iva SMALLINT (2) CHECK (iva BETWEEN 5 AND iva 25),
+existencias_actuales NUMERIC (5) DEFAULT 0,
+);
+
+CREATE TABLE factura (
+num_factura SMALLINT(6) CONSTRAINT factura_num_factura_pk PRIMARY KEY,
+fecha_factura DATE DEFAULT TO_DATE ('01/01/2005','DD/MM/YYYY'),
+);
+
+CREATE TABLE linea_factura (
+num_factura SMALLINT(6) CONSTRAINT linea_factura_num_factura_pk PRIMARY KEY,
+referencia_articulo VARCHAR(12) CONSTRAINT linea_factura_referencia_articulo_pk PRIMARY KEY,
+unidades SMALLINT(3),
+CONSTRAINT linea_factura_num_factura_fk FOREIGN KEY
+REFERENCES factura(num_factura)
+ON DELETE CASCADE,
+CONSTRAINT linea_factura_referencia_articulo_fk FOREIGN KEY
+REFERENCES articulo(referencia_articulo)
+
+);

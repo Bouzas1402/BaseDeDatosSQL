@@ -1,0 +1,3 @@
+CREATE TABLE genero (
+  genero VARCHAR(20) PRIMARY KEY
+);
